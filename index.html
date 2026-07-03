@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atlas Trail Tree Planner</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Atlas Trail home">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span>Atlas Trail</span>
+      </a>
+      <div class="status-row" aria-live="polite">
+        <span id="db-status">Loading local database</span>
+        <button class="ghost-button" id="seed-data" type="button">Restore Sample</button>
+      </div>
+    </header>
+
+    <main class="planner-shell">
+      <section class="map-stage" aria-label="Trip map">
+        <div id="map" class="map" hidden></div>
+        <div id="fallback-map" class="fallback-map" hidden></div>
+        <div class="map-summary" aria-label="Trip summary">
+          <p class="eyebrow">Tree Trip</p>
+          <h1 id="trip-title">Trip to Maine</h1>
+          <p id="trip-meta">July 3 2026 - July 5 2026</p>
+          <div class="summary-grid">
+            <div>
+              <strong id="node-count">0</strong>
+              <span>nodes</span>
+            </div>
+            <div>
+              <strong id="hotel-count">0</strong>
+              <span>hotels</span>
+            </div>
+            <div>
+              <strong id="dining-count">0</strong>
+              <span>dining</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Trip tree data editor">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Itinerary Data</p>
+            <h2>Tree Nodes</h2>
+          </div>
+          <button class="primary-button" id="new-root-child" type="button">Add Node</button>
+        </div>
+
+        <div class="tree-list" id="tree-list" aria-live="polite"></div>
+      </aside>
+    </main>
+
+    <dialog class="node-dialog" id="node-dialog">
+      <form id="node-form" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <p class="section-kicker" id="dialog-mode">Edit Node</p>
+            <h2 id="dialog-title">Travel Point</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="button" id="close-dialog" aria-label="Close editor">×</button>
+        </div>
+
+        <input id="node-id" name="id" type="hidden">
+        <input id="parent-id" name="parentId" type="hidden">
+
+        <div class="form-grid">
+          <label>
+            ID
+            <input id="display-id" type="text" disabled>
+          </label>
+          <label>
+            Level
+            <input id="level" name="level" type="number" min="0" max="8" required>
+          </label>
+        </div>
+
+        <label>
+          Name
+          <input id="name" name="name" type="text" required>
+        </label>
+
+        <div class="form-grid">
+          <label>
+            Start date
+            <input id="start-date" name="startDate" type="date" required>
+          </label>
+          <label>
+            End date
+            <input id="end-date" name="endDate" type="date" required>
+          </label>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            Start time
+            <input id="start-time" name="startTime" type="time">
+          </label>
+          <label>
+            End time
+            <input id="end-time" name="endTime" type="time">
+          </label>
+        </div>
+
+        <div class="toggle-grid" role="group" aria-label="Node type">
+          <label class="check-card">
+            <input id="is-hotel" name="isHotel" type="checkbox">
+            <span>Hotel</span>
+          </label>
+          <label class="check-card">
+            <input id="is-dining" name="isDining" type="checkbox">
+            <span>Dining</span>
+          </label>
+        </div>
+
+        <label>
+          GPS / address / area
+          <input id="location" name="location" type="text" placeholder="44.3876,-68.2039 or restaurant address" required>
+        </label>
+
+        <label>
+          Description
+          <textarea id="description" name="description" rows="4" required></textarea>
+        </label>
+
+        <div class="dialog-actions">
+          <button class="danger-button" id="delete-node" type="button">Delete</button>
+          <div>
+            <button class="ghost-button" id="cancel-edit" type="button">Cancel</button>
+            <button class="primary-button" type="submit">Save</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
